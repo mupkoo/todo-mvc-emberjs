@@ -15,6 +15,16 @@ Todos.TodosController = Ember.ArrayController.extend({
         return this.get('completedCount') > 0;
     }.property('completedCount'),
 
+    allAreDone: function (key, value) {
+        if (value === undefined) {
+            return !!this.get('length') && this.everyProperty('isCompleted', true);
+        } else {
+            this.setEach('isCompleted', value);
+            this.invoke('save');
+            return value;
+        }
+    }.property('@each.isCompleted'),
+
     actions: {
         create: function () {
             var title = this.get('newTitle');
