@@ -1,5 +1,6 @@
 Todos.TodoController = Ember.ObjectController.extend({
     isEditing: false,
+    bufferTitle: '',
 
     isCompleted: function (key, value) {
         var model = this.get('model');
@@ -16,6 +17,7 @@ Todos.TodoController = Ember.ObjectController.extend({
 
     actions: {
         editTodo: function () {
+            this.set('bufferTitle', this.get('title'));
             this.set('isEditing', true);
         },
 
@@ -26,6 +28,11 @@ Todos.TodoController = Ember.ObjectController.extend({
 
         destroy: function () {
             this.get('model').destroyRecord();
+        },
+
+        cancel: function () {
+            this.set('title', this.get('bufferTitle'));
+            this.set('isEditing', false);
         }
     }
 });

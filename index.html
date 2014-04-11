@@ -47,6 +47,7 @@
 
         <footer id="info">
             <p>Double-click to edit a todo</p>
+            <p>Press escape to cancel the edit</p>
         </footer>
     </script>
 
@@ -55,7 +56,7 @@
             {{#each itemController="todo"}}
                 <li {{bind-attr class="isCompleted:completed isEditing:editing"}}>
                     {{#if isEditing}}
-                        {{edit-todo type="text" class="edit" value=title focus-out="update" insert-newline="update"}}
+                        {{edit-todo type="text" class="edit" value=title focus-out="update" escape-press="cancel" insert-newline="update"}}
                     {{else}}
                         {{input type="checkbox" checked=isCompleted class="toggle"}}
                         <label {{action "editTodo" on="doubleClick"}}>{{ title }}</label>
